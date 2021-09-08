@@ -1,11 +1,24 @@
 #! /bin/bash
 
+# IMPORTANT! 
+# WHEN USING -F FLAG, WRITE WITHOUT SPACE BETWEEN -F AND THE DIRECTORY!
+
 RED='\033[0;31m'   # red
 GREEN='\033[0;32m' # green
 
 function validate() {
 
-    text=$1    
+    text=$1
+
+    while getopts "f:" opt; do
+        case $opt in
+        f)        
+            printf "reading from file $OPTARG \n" >&2
+            text=""
+            text=$(<$OPTARG)
+            ;;
+        esac
+    done
 
     if checkLength $text; then
         if containsNumbers $text; then
