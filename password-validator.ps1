@@ -1,5 +1,14 @@
 $input = $args[0]
+$file = $args[1]
 $error_counter = 0
+
+# Check for a -f flag
+if ( $args[0] -eq "-f") {
+    $input = Get-ChildItem $file -Recurse -Include *.txt | Get-Content
+}
+else {
+    $input = $args[0]
+}
 
 # Check whether input conatins 10 characters or more.
 if ($input.Length -lt 10) {
