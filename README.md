@@ -37,6 +37,26 @@
 # Password-Validator-App-Powershell
 
 
+## Instructions:
 
+
+1. **Navigate** to the directory that contains the "password-validator.ps1" file.
+2. **Open** a Powershell terminal.
+3. **Run** the script by executing ```  ./password-validator.ps1 "<YourInputPassword>" ```
+   For example:
+   
+   ```
+   ./password-validator.ps1 "asdasd1Aaaa"
+   ``` 
+   
+   This password is valid and you should see a green output indicating so. If it werent you would get an explanation why it isnt valid in red.
+
+4. In order to use a text file as a source for your password, **Run** the following command:
+
+   ``` 
+   ./pass-validator.ps1 -f "<PathToTextFile>"
+   ```
+   
+   The result should be similar to step 3 result.
    
    
