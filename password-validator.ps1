@@ -1,65 +1,36 @@
-param (
-    [switch]$f
-)
+$input = $args[0]
+$error_counter = 0
 
-Function validate ([string]$text) {    
-    if ($f) {
-        # read from file
-        $text = Get-Content ./text.txt        
-    }
-
-    if (checkLength $text) {        
-        if (containsNumbers $text) {
-            if (containsLowercase $text) {
-                if (containsUppercase $text) {
-                    if (containSpecialChars $text) {
-                        Write-Host "Valid" -ForegroundColor Green
-                    }
-                    else {
-                        Write-Host "Password must contain special characters" -ForegroundColor Red
-                        return 1    
-                    }
-                }
-                else {
-                    Write-Host "Password must contain upper case letters" -ForegroundColor Red
-                    return 1    
-                }
-            }
-            else {
-                Write-Host "Password must contain lower case letters" -ForegroundColor Red
-                return 1    
-            }                       
-        }   
-        else {
-            Write-Host "Password must contain numbers" -ForegroundColor Red
-            return 1    
-        }     
-    }
-    else {                
-        Write-Host "Password must contain at least 10 characters" -ForegroundColor Red
-        return 1
-    }     
-} 
-
-
-Function checkLength($arg) {        
-    return ($arg.length -gt 10)
+# Check whether input conatins 10 characters or more.
+if ($input.Length -lt 10) {
+    $error_counter = 1
+    Write-Host -ForegroundColor red "Password must be at least 10 characters" 
 }
 
-Function containsNumbers($arg) {    
-    return ($arg -match '\d')
+# Check whether input conatins upper case characters.
+if ( ! ($input -cmatch "[A-Z]")) {
+    $error_counter = 1
+    Write-Host -ForegroundColor red "Password must contain upper case letters"
 }
 
-Function containsLowercase($arg) {    
-    return ($arg -cmatch "[a-z]")
+# Check whether input conatins lower case characters.
+if ( ! ($input -cmatch "[a-z]")) { 
+    $error_counter = 1
+    Write-Host -ForegroundColor red "Password must contain lower case letters"
 }
 
-Function containsUppercase($arg) {             
-    return ($arg -cmatch "[A-Z]")
+# Check whether input conatins numbers.
+if ( ! ($input -cmatch "[0-9]")) { 
+    $error_counter = 1
+    Write-Host -ForegroundColor red "Password must contains numbers"
 }
 
-Function containSpecialChars($arg) {                 
-    return ($arg -cmatch "[!@#$%^&*()_+|]")   
+# If the error_counter is equal to 1, the password is invalid.
+if ( $error_counter -eq 1) {
+    Write-Host -ForegroundColor red "Password is not valid"
+    exit 1;
 }
-
-validate $args
+else {
+    Write-Host -ForegroundColor green "Password is valid"
+    exit 0;
+}
