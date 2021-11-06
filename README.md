@@ -1,4 +1,4 @@
-# Password-Vlidator-App
+# Password-Validator-App
 
 ### This application recieves an input from the user and checks whether it fulfills the requirements:
 
