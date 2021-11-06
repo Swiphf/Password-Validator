@@ -6,12 +6,12 @@ error_counter=0
 green='\033[1;92m' # Valid
 red='\033[1;91m'   # Invalid
 
-if [[ $1 == "-f" ]] ; # Check if first argument is -f
+if [[ $1 == "-f" ]] ; # Check -f flag
 then
     file_to_check=$2
     password_file="$(find . | grep txt)"
     file_to_check="$(cat "$password_file")"
-    PASSWORD=$file_to_check
+    input=$file_to_check
 else
     input=$1
 fi
